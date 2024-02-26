@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoo</title>
+    <link rel="stylesheet" href="./stylesheet/style.css" />
+</head>
+
+<body id="signUp">
+    <header>
+        <h1>
+            Welcome To Our ZoOoO!
+        </h1>
+    </header>
+
+    <form id="create-visitor-form">
+        <div>
+            <label id="myLabel" for="VisitorName">Username:</label><br>
+            <input type="text" id="VisitorName" name="VisitorName">
+        </div>
+        <div>
+            <label id="myLabel" for="Password">Password:</label><br>
+            <input type="text" id="Password" name="Password">
+        </div>
+        <div>
+            <label id="myLabel" for="age">Choose an age:</label>
+            <select name="age" id="age">
+                <option></option>
+                <option value="3-10">3-10</option>
+                <option value="11-18">11-18</option>
+                <option value="19-30">19-30</option>
+                <option value="31+">31+</option>
+            </select>
+        </div>
+        <div>
+            <label id="myLabel" for="Male">Select Gender: </label><br>
+            <label id="myLabel" for="Male">Male</label>
+            <input type="radio" id="Male" name="gender" value="male">
+            <label id="myLabel" for="Female">Female</label>
+            <input type="radio" id="Female" name="gender" value="female">
+
+        </div>
+        <div>
+            <label id="myLabel" for="coins">Coins:</label>
+            <input value="50  💰" type="text" id="coins" name="coins" size="1" disabled>
+        </div>
+        <div>
+            <input type="submit" value="submit">
+        </div>
+    </form>
+    <script src="signUp.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html
