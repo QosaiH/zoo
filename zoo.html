@@ -17,21 +17,20 @@
     <section id="fillters">
         <div>
             <label class="searchLabel" for="nonePredator">isPredator: </label>
-            <input class="searchInput" type="radio" id="nonePredator" name="isPredator" value="nonePredator"
-                checked="true">
+            <input type="radio" id="nonePredator" name="isPredator" value="nonePredator" checked="true">
             <label class="searchLabel" for="nonePredator">none</label>
-            <input class="searchInput" type="radio" id="yesPredator" name="isPredator" value="yes">
+            <input type="radio" id="yesPredator" name="isPredator" value="yes">
             <label class="searchLabel" for="yesPredator">yes</label>
-            <input class="searchInput" type="radio" id="noPredator" name="isPredator" value="no">
+            <input type="radio" id="noPredator" name="isPredator" value="no">
             <label class="searchLabel" for="noPredator">no</label>
         </div>
         <div>
             <label class="searchLabel" for="noneHabitat">habitat: </label>
-            <input class="searchInput" type="radio" id="noneHabitat" name="habitat" value="noneHabitat" checked="true">
+            <input type="radio" id="noneHabitat" name="habitat" value="noneHabitat" checked="true">
             <label class="searchLabel" for="noneHabitat">none</label>
-            <input class="searchInput" type="radio" id="landHabitat" name="habitat" value="land">
+            <input type="radio" id="landHabitat" name="habitat" value="land">
             <label class="searchLabel" for="landHabitat">land</label>
-            <input class="searchInput" type="radio" id="seaHabitat" name="habitat" value="sea">
+            <input type="radio" id="seaHabitat" name="habitat" value="sea">
             <label class="searchLabel" for="seaHabitat">sea</label>
         </div>
         <div>
@@ -49,6 +48,12 @@
                 <option value="grey">grey</option>
                 <option value="brown">brown</option>
             </select>
+        </div>
+        <div>
+            <div>
+                <label class="searchLabel" for="searchAnimal">Search by name:</label>
+                <input class="searchInput" type="text" id="searchAnimal" name="searchAnimal">
+            </div>
         </div>
     </section>
     <div id="animalContainer"></div>

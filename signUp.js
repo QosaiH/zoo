@@ -5,14 +5,17 @@ function createNewVisitor(event) {
   const genderInput = document.querySelector('input[name="gender"]:checked');
   const passwordInput = document.getElementById("Password");
   const name = nameInput.value.trim();
-  const age = ageInput.value; // No need to trim for select elements
+  const age = ageInput.value;
   const gender = genderInput ? genderInput.value : "";
   const password = passwordInput.value.trim();
+
+  //check if field not filled
   if (!name || !age || !gender || !password) {
     alert("Please fill in all fields with valid information.");
     return;
   }
-  // Additional validation if needed...
+
+  // check if visitor exist
   const existingVisitors = JSON.parse(localStorage.getItem("visitors")) || [];
   const visitorExists = existingVisitors.some(
     (visitor) => visitor.name === name
@@ -21,6 +24,8 @@ function createNewVisitor(event) {
     alert("Visitor already exists. Choose a different name.");
     return;
   }
+
+  // create new visitor and go to login page
   const newVisitor = { name, age, gender, password, coins: 50 };
   existingVisitors.push(newVisitor);
   localStorage.setItem("visitors", JSON.stringify(existingVisitors));

@@ -49,7 +49,7 @@ function loginAsVisitor(visitorName) {
   }
 
   localStorage.setItem("selectedVisitor", visitorName);
-  displayVisitors();
+  window.location.href = "zoo.html";
 }
 document
   .getElementById("selectedVisitorMessage")

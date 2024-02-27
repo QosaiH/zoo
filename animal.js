@@ -1,20 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   renderAnimal();
+  renderRelatedAnimals();
 });
 function renderAnimal() {
   const selectedAnimal = JSON.parse(localStorage.getItem("visitedAnimals"));
-  console.log(selectedAnimal);
 
   // Update HTML elements with the specific fields of the selected animal
   const imageDiv = document.getElementById("image");
-  if (!imageDiv) {
-    console.error("Element with ID 'image' not found.");
-    return;
-  }
-
-  imageDiv.innerHTML = ""; // Clear previous content
-
-  // Create and append the image element
   const imageElement = document.createElement("img");
   imageElement.src = selectedAnimal.image;
   imageElement.alt = selectedAnimal.name;
@@ -40,22 +32,37 @@ function renderAnimal() {
 
 function renderRelatedAnimals() {
   const selectedAnimal = JSON.parse(localStorage.getItem("visitedAnimals"));
-  const relatedAnimalsElement = document.getElementById("related-animals");
+  let relatedAnimalsElement = document.getElementById("related-animals");
+  const animals = JSON.parse(localStorage.getItem("animals"));
 
   // Clear previous content
   relatedAnimalsElement.innerHTML = "";
 
-  // Assume related animals are stored in an array named 'relatedAnimals'
-  relatedAnimals.forEach((animal) => {
-    if (animal.habitat === selectedAnimal.habitat) {
-      const animalCard = document.createElement("div");
-      animalCard.classList.add("animal-card");
-      animalCard.textContent = animal.name;
-      relatedAnimalsElement.appendChild(animalCard);
+  // Iterate through the animals to find related ones
+  animals.forEach((animal) => {
+    if (
+      animal.habitat === selectedAnimal.habitat &&
+      animal.name !== selectedAnimal.name
+    ) {
+      relatedAnimalsElement.innerHTML += `
+      <div>
+        <img class="card-img-top" src="${animal.image}" alt="${animal.name}">
+        <div class="card-body">
+          <h3 class="card-title">${animal.name}</h3>
+          <p class="card-text">
+            Predator: ${animal.isPredator ? "Yes" : "No"}<br>
+            Weight: ${animal.weight}<br>
+            Height: ${animal.height}<br>
+            Color: ${animal.color}<br>
+            Habitat: ${animal.habitat}<br>
+          </p>
+        </div>
+        </div>
+      `;
     }
   });
 }
-
+/*
 function feedAnimal() {
   const selectedAnimal = JSON.parse(localStorage.getItem("visitedAnimals"));
   let coins = parseInt(localStorage.getItem("coins"));
@@ -77,3 +84,4 @@ function animalEscaped() {
   alert("The animal has escaped from the zoo!");
 }
 // Your JavaScript code here
+*/
