@@ -1,5 +1,5 @@
-<html lang="en">
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -14,30 +14,46 @@
     <header>
         <h1>Animals</h1>
     </header>
-    <div id="fillters">
+    <section id="fillters">
         <div>
-            <label for="none">isPredator: </label>
-            <input type="radio" id="none" name="isPredator" value="none" checked="true">
-            <label for="none">none</label>
-            <input type="radio" id="yes" name="isPredator" value="yes">
-            <label for="yes">yes</label>
-            <input type="radio" id="no" name="isPredator" value="no">
-            <label for="no">no,</label>
+            <label class="searchLabel" for="nonePredator">isPredator: </label>
+            <input class="searchInput" type="radio" id="nonePredator" name="isPredator" value="nonePredator"
+                checked="true">
+            <label class="searchLabel" for="nonePredator">none</label>
+            <input class="searchInput" type="radio" id="yesPredator" name="isPredator" value="yes">
+            <label class="searchLabel" for="yesPredator">yes</label>
+            <input class="searchInput" type="radio" id="noPredator" name="isPredator" value="no">
+            <label class="searchLabel" for="noPredator">no</label>
         </div>
         <div>
-            <label for="noneh">habitat: </label>
-            <input type="radio" id="noneh" name="habitat" value="noneh" checked="true">
-            <label for="noneh">none</label>
-            <input type="radio" id="land" name="habitat" value="land">
-            <label for="land">land</label>
-            <input type="radio" id="sea" name="habitat" value="sea">
-            <label for="sea">sea</label>
+            <label class="searchLabel" for="noneHabitat">habitat: </label>
+            <input class="searchInput" type="radio" id="noneHabitat" name="habitat" value="noneHabitat" checked="true">
+            <label class="searchLabel" for="noneHabitat">none</label>
+            <input class="searchInput" type="radio" id="landHabitat" name="habitat" value="land">
+            <label class="searchLabel" for="landHabitat">land</label>
+            <input class="searchInput" type="radio" id="seaHabitat" name="habitat" value="sea">
+            <label class="searchLabel" for="seaHabitat">sea</label>
         </div>
-    </div>
+        <div>
+            <label class="searchLabel" for="minWeight">minWeight: </label>
+            <input class="searchInput" type="number" id="minWeight" name="minWeight" value=0>
+        </div>
+        <div>
+            <label class="searchLabel" for="minHeight">minHeight: </label>
+            <input class="searchInput" type="number" id="minHeight" name="minHeight" value=0>
+        </div>
+        <div>
+            <label class="searchLabel" for="color">Choose a color:</label>
+            <select name="color" id="color">
+                <option value="all">all</option>
+                <option value="grey">grey</option>
+                <option value="brown">brown</option>
+            </select>
+        </div>
+    </section>
     <div id="animalContainer"></div>
     <script src="zoo.js"></script>
     <script src="main.js"></script>
-    <script src="signUp.js"></script>
 </body>
 
 </html>

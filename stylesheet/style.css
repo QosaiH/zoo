@@ -108,9 +108,22 @@ button:hover {
   background-color: #d46127;
   display: flex;
   flex-direction: row;
-  gap: 0.2cm;
+  justify-content: center;
+  gap: 1cm;
   flex-wrap: wrap;
-  border: 1cm solid #f6f6f6;
+}
+.searchLabel {
+  font-size: 20px;
+}
+.inputLabel {
+  font-size: 8px;
+  font-weight: bold;
+}
+button a {
+  color: black;
+  text-decoration: none;
+  font-size: 22px;
+  font-style: bold;
 }
 /* Responsive adjustments */
 @media only screen and (max-width: 768px) {
