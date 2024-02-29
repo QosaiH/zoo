@@ -135,6 +135,31 @@ button:hover {
   display: flex;
   flex-direction: row;
   gap: 0.1cm;
+  margin-top: 0.5cm;
+  height: 20rem;
+}
+#related-animals .card img {
+  height: 8rem;
+}
+#visited-animals {
+  display: flex;
+  flex-direction: row;
+  gap: 0.1cm;
+  margin-top: 0.5cm;
+  height: 20rem;
+}
+nav {
+  background-color: #f8f9fa;
+  padding: 10px 20px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+#selectedVisitorInfo {
+  margin-right: 20px;
+}
+
+#visitorDropdown {
+  width: 200px;
 }
 /* Responsive adjustments */
 @media only screen and (max-width: 768px) {

@@ -54,7 +54,6 @@ function loginAsVisitor(visitorName) {
 document
   .getElementById("selectedVisitorMessage")
   .addEventListener("click", () => {
-    console.log("Logout function called");
     localStorage.removeItem("selectedVisitor");
     displayVisitors(); // Make sure this function is called properly
   });

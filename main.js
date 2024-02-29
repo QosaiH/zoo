@@ -100,7 +100,7 @@ let visitors = [
     gender: "female",
   },
 ];
-const animals = [
+let animals = [
   {
     name: "Lion",
     isPredator: true,
@@ -195,14 +195,61 @@ const animals = [
 // פונקציה זו טוענת עבורכם את המידע ההתחלתי של האפליקציה, במידה וקיים מידע בלוקל סטורג׳, היא תקח אותו משם
 // אל תשנו את הקוד בפונקציה הזו כדי לשמור על תקינות הטמפלייט
 function generateDataset() {
-  localStorage.setItem("visitors", JSON.stringify(visitors));
+  if (localStorage.getItem("visitors")) {
+    visitors = JSON.parse(localStorage.getItem("visitors"));
+  } else {
+    localStorage.setItem("visitors", JSON.stringify(visitors));
+  }
+  if (localStorage.getItem("animals")) {
+    animals = JSON.parse(localStorage.getItem("animals"));
+  } else {
+    localStorage.setItem("animals", JSON.stringify(animals));
+  }
 
-  localStorage.setItem("animals", JSON.stringify(animals));
+  console.log(visitors);
 }
 generateDataset();
 
 //********************** */
 function logout() {
-  //ממשו את הלוגיקה שמתנתקת מאורח מחובר
-  // שימו לב לנקות את השדה המתאים בלוקל סטורג'
+  localStorage.removeItem("selectedVisitor");
+  window.location.href = "login.html"; // Make sure this function is called properly
 }
+// Function to handle visitor change from the dropdown
+function showSelectedVisitor() {
+  const selectedVisitorName = localStorage.getItem("selectedVisitor") || "";
+  const selectedVisitor = visitors.find(
+    (visitor) => visitor.name === selectedVisitorName
+  );
+
+  if (selectedVisitor) {
+    const visitorCoins = selectedVisitor.coins;
+    const selectedVisitorInfo = document.getElementById("selectedVisitorInfo");
+    selectedVisitorInfo.textContent = `Guest: ${selectedVisitorName} - Coins: ${visitorCoins}`;
+
+    // Save the selected visitor's name to local storage under the key "selectedVisitor"
+    localStorage.setItem("selectedVisitor", selectedVisitorName);
+  }
+}
+
+// Function to reset local storage
+function resetLocalStorage() {
+  localStorage.clear();
+  location.reload(); // Reload the page after clearing local storage
+}
+function openDashboard() {
+  window.location.href = "dashboard.html";
+}
+// Populating the dropdown menu with visitors
+document.addEventListener("DOMContentLoaded", function () {
+  const dropdown = document.getElementById("visitorDropdown");
+  if (dropdown) {
+    showSelectedVisitor();
+    visitors.forEach((visitor) => {
+      const option = document.createElement("option");
+      option.value = visitor.name;
+      option.textContent = visitor.name;
+      dropdown.appendChild(option);
+    });
+  }
+});

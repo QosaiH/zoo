@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   renderAnimal();
   renderRelatedAnimals();
+  const feedAnimalButton = document.getElementById("feed-animal");
+  feedAnimalButton.addEventListener("click", feedAnimal);
 });
+
 function renderAnimal() {
   const selectedAnimal = JSON.parse(localStorage.getItem("visitedAnimals"));
 
@@ -45,7 +48,7 @@ function renderRelatedAnimals() {
       animal.name !== selectedAnimal.name
     ) {
       relatedAnimalsElement.innerHTML += `
-      <div>
+      <div class="card">
         <img class="card-img-top" src="${animal.image}" alt="${animal.name}">
         <div class="card-body">
           <h3 class="card-title">${animal.name}</h3>
@@ -62,26 +65,63 @@ function renderRelatedAnimals() {
     }
   });
 }
-/*
+
 function feedAnimal() {
   const selectedAnimal = JSON.parse(localStorage.getItem("visitedAnimals"));
-  let coins = parseInt(localStorage.getItem("coins"));
+  const visitorName = localStorage.getItem("selectedVisitor");
+  let visitors = JSON.parse(localStorage.getItem("visitors")) || [];
 
-  if (coins >= 5) {
-    alert(`Feeding ${selectedAnimal.name}...`);
-    coins -= 5; // Deduct 5 coins for feeding
-    localStorage.setItem("coins", coins); // Update the number of coins in localStorage
-  } else {
-    alert("Not enough coins to feed the animal!");
+  const visitorIndex = visitors.findIndex(
+    (visitor) => visitor.name === visitorName
+  );
+
+  if (visitorIndex !== -1) {
+    let visitor = visitors[visitorIndex];
+    visitor.coins -= 2; // Deduct 2 coins for feeding
+    visitors[visitorIndex] = visitor; // Update the visitor object in the array
+    localStorage.setItem("visitors", JSON.stringify(visitors)); // Update visitors in localStorage
+    if (visitor.coins >= 0) {
+      let feededAnimals =
+        JSON.parse(localStorage.getItem(visitorName + "_feededAnimals")) || [];
+      feededAnimals.push(selectedAnimal.name);
+      localStorage.setItem(
+        visitorName + "_feededAnimals",
+        JSON.stringify(feededAnimals)
+      );
+      alert(`Feeding ${selectedAnimal.name}...`);
+    }
+    if (visitor.coins < 0 && selectedAnimal.isPredator) {
+      visitorGotEaten();
+      return;
+    }
+
+    if (visitor.coins < 0 && selectedAnimal.isPredator == false) {
+      animalEscaped(); // Handle the case where the selected visitor is not found
+    }
   }
 }
 
 function visitorGotEaten() {
-  alert("Oh no! You got eaten by the animal!");
+  const visitorName = localStorage.getItem("selectedVisitor");
+  removeVisitor(visitorName); // Remove the eaten visitor from the local visitors array
+  localStorage.removeItem("selectedVisitor"); // Remove the selected visitor from local storage
 }
-
+function removeVisitor(visitorName) {
+  let visitors = JSON.parse(localStorage.getItem("visitors")) || [];
+  visitors = visitors.filter((visitor) => visitor.name !== visitorName);
+  localStorage.setItem("visitors", JSON.stringify(visitors));
+  alert("Oh no! You got eaten by the animal!");
+  window.location.href = "login.html";
+}
 function animalEscaped() {
+  const escapedAnimalName = JSON.parse(localStorage.getItem("visitedAnimals"));
+  removeAnimal(escapedAnimalName); // Remove the escaped animal from the local animals array
+}
+function removeAnimal(animalName) {
+  let animals = JSON.parse(localStorage.getItem("animals")) || [];
+  animals = animals.filter((animal) => animal.name !== animalName);
+  localStorage.setItem("animals", JSON.stringify(animals));
   alert("The animal has escaped from the zoo!");
+  window.location.href = "zoo.html";
 }
 // Your JavaScript code here
-*/
