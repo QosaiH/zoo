@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  displayVisitors();
+  filterVisitors();
 });
 
 function displayVisitors(filteredVisitors) {

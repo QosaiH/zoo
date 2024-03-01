@@ -43,6 +43,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Apply filters on page load
   applyFilters();
+
+  // Set event listener for applying filters
+  document
+    .getElementById("applyFilters")
+    .addEventListener("click", () => setFilter("some", "some"));
 });
 
 function saveFiltersToLocalStorage() {
@@ -74,7 +79,6 @@ function displayAnimals(animals) {
   const animalContainer = document.getElementById("animalContainer");
   const cardHTML = renderAvailableAnimals(animals);
   animalContainer.innerHTML = cardHTML;
-  setFilter();
 }
 
 function renderAvailableAnimals(animals) {
@@ -99,21 +103,51 @@ function renderAvailableAnimals(animals) {
   });
   return cardHTML;
 }
+
 function visitAnimal(animalName) {
   const selectedAnimal = animals.find((animal) => animal.name === animalName);
-  localStorage.setItem("visitedAnimals", JSON.stringify(selectedAnimal));
+  let newAnimalVisit = JSON.parse(localStorage.getItem("visitedAnimals")) || [];
+  newAnimalVisit.push(animalName);
+  localStorage.setItem("visitedAnimals", JSON.stringify(newAnimalVisit));
+  localStorage.setItem("visitedAnimal", JSON.stringify(selectedAnimal));
   window.location.href = "animal.html";
 }
-function setFilter() {
-  const filterInputs = document.querySelectorAll(
-    'input[name="isPredator"], input[name="habitat"], select[name="color"], input[name="minWeight"], input[name="minHeight"], input[name="searchAnimal"]'
-  );
-  filterInputs.forEach((input) => {
-    input.addEventListener("change", () => {
-      applyFilters();
-      saveFiltersToLocalStorage(); // Save filters to local storage on change
-    });
-  });
+
+function setFilter(filterKey, filterValue) {
+  // Set the filter according to the provided key and value
+  switch (filterKey) {
+    case "isPredator":
+    case "habitat":
+      // For checkboxes and dropdowns, set the checked or selected value
+      const filterInputs = document.querySelectorAll(
+        `input[name="${filterKey}"][value="${filterValue}"]`
+      );
+      filterInputs.forEach((input) => {
+        input.checked = true;
+      });
+      break;
+    case "minWeight":
+    case "minHeight":
+      // For input fields, set the value
+      document.querySelector(`input[name="${filterKey}"]`).value = filterValue;
+      break;
+    case "color":
+      // For dropdowns, set the selected value
+      document.querySelector('select[name="color"]').value = filterValue;
+      break;
+    case "searchAnimal":
+      // For search inputs, set the value
+      document.querySelector('input[name="searchAnimal"]').value = filterValue;
+      break;
+    default:
+      break;
+  }
+
+  // Save the selected filters to local storage
+  saveFiltersToLocalStorage();
+
+  // Apply filters to display only the animals that meet the filter conditions
+  applyFilters();
 }
 
 function applyFilters() {

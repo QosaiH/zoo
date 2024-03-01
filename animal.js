@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function renderAnimal() {
-  const selectedAnimal = JSON.parse(localStorage.getItem("visitedAnimals"));
+  const selectedAnimal = JSON.parse(localStorage.getItem("visitedAnimal"));
 
   // Update HTML elements with the specific fields of the selected animal
   const imageDiv = document.getElementById("image");
@@ -34,7 +34,7 @@ function renderAnimal() {
 }
 
 function renderRelatedAnimals() {
-  const selectedAnimal = JSON.parse(localStorage.getItem("visitedAnimals"));
+  const selectedAnimal = JSON.parse(localStorage.getItem("visitedAnimal"));
   let relatedAnimalsElement = document.getElementById("related-animals");
   const animals = JSON.parse(localStorage.getItem("animals"));
 
@@ -52,13 +52,6 @@ function renderRelatedAnimals() {
         <img class="card-img-top" src="${animal.image}" alt="${animal.name}">
         <div class="card-body">
           <h3 class="card-title">${animal.name}</h3>
-          <p class="card-text">
-            Predator: ${animal.isPredator ? "Yes" : "No"}<br>
-            Weight: ${animal.weight}<br>
-            Height: ${animal.height}<br>
-            Color: ${animal.color}<br>
-            Habitat: ${animal.habitat}<br>
-          </p>
         </div>
         </div>
       `;
@@ -67,7 +60,7 @@ function renderRelatedAnimals() {
 }
 
 function feedAnimal() {
-  const selectedAnimal = JSON.parse(localStorage.getItem("visitedAnimals"));
+  const selectedAnimal = JSON.parse(localStorage.getItem("visitedAnimal"));
   const visitorName = localStorage.getItem("selectedVisitor");
   let visitors = JSON.parse(localStorage.getItem("visitors")) || [];
 
@@ -82,12 +75,9 @@ function feedAnimal() {
     localStorage.setItem("visitors", JSON.stringify(visitors)); // Update visitors in localStorage
     if (visitor.coins >= 0) {
       let feededAnimals =
-        JSON.parse(localStorage.getItem(visitorName + "_feededAnimals")) || [];
+        JSON.parse(localStorage.getItem("feededAnimals")) || [];
       feededAnimals.push(selectedAnimal.name);
-      localStorage.setItem(
-        visitorName + "_feededAnimals",
-        JSON.stringify(feededAnimals)
-      );
+      localStorage.setItem("feededAnimals", JSON.stringify(feededAnimals));
       alert(`Feeding ${selectedAnimal.name}...`);
     }
     if (visitor.coins < 0 && selectedAnimal.isPredator) {
@@ -114,7 +104,7 @@ function removeVisitor(visitorName) {
   window.location.href = "login.html";
 }
 function animalEscaped() {
-  const escapedAnimalName = JSON.parse(localStorage.getItem("visitedAnimals"));
+  const escapedAnimalName = JSON.parse(localStorage.getItem("visitedAnimal"));
   removeAnimal(escapedAnimalName); // Remove the escaped animal from the local animals array
 }
 function removeAnimal(animalName) {

@@ -211,6 +211,7 @@ function generateDataset() {
 generateDataset();
 
 //********************** */
+
 function logout() {
   localStorage.removeItem("selectedVisitor");
   window.location.href = "login.html"; // Make sure this function is called properly
@@ -242,14 +243,64 @@ function openDashboard() {
 }
 // Populating the dropdown menu with visitors
 document.addEventListener("DOMContentLoaded", function () {
-  const dropdown = document.getElementById("visitorDropdown");
-  if (dropdown) {
-    showSelectedVisitor();
-    visitors.forEach((visitor) => {
-      const option = document.createElement("option");
-      option.value = visitor.name;
-      option.textContent = visitor.name;
-      dropdown.appendChild(option);
-    });
+  // Check if the current URL ends with "zoo.html"
+  if (
+    location.pathname.endsWith("zoo.html") ||
+    location.pathname.endsWith("animal.html") ||
+    location.pathname.endsWith("dashboard.html")
+  ) {
+    const navbar = document.createElement("nav");
+    navbar.className = "navbar navbar-expand-lg navbar-light bg-light";
+    navbar.innerHTML = `
+    <ul class="navbar-nav me-auto">
+        <!-- Toggler button for mobile -->
+        <li class="nav-item">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </li>
+
+        <!-- Navbar items -->
+        <li class="nav-item">
+            <button class="btn btn-outline-danger me-2" onclick="openDashboard()">Dashboard</button>
+        </li>
+
+
+        <!-- Selected visitor info and reset button -->
+        <li class="nav-item">
+            <span id="selectedVisitorInfo" class="me-2">Guest: [Visitor Name] - Coins: [Visitor Coins]</span>
+        </li>
+        <li class="nav-item">
+            <button class="btn btn-outline-danger me-2" onclick="resetLocalStorage()">Reset</button>
+        </li>
+
+        <!-- Dropdown menu for selecting visitors -->
+        <li class="nav-item">
+            <select id="visitorDropdown" class="form-select me-2" onchange="showSelectedVisitor()">
+                <option value="">Show Visitors</option>
+                <!-- Dynamically populate this dropdown with possible visitors -->
+            </select>
+        </li>
+        <li class="nav-item">
+            <button class="btn btn-outline-danger" onclick="logout()">Logout</button>
+        </li>
+    </ul>
+`;
+
+    // Find the appropriate location to insert the navbar
+    document.body.insertAdjacentElement("afterbegin", navbar);
+
+    const dropdown = document.getElementById("visitorDropdown");
+    if (dropdown) {
+      showSelectedVisitor();
+      visitors.forEach((visitor) => {
+        const option = document.createElement("option");
+        option.value = visitor.name;
+        option.textContent = visitor.name;
+        option.disabled = true;
+        dropdown.appendChild(option);
+      });
+    }
   }
 });

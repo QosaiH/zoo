@@ -1,11 +1,6 @@
 body {
   background-image: url("../photos/zobck.jpg");
 }
-header {
-  display: flex;
-  font: 26px;
-  justify-content: center;
-}
 
 #create-visitor-form {
   display: flex;
@@ -27,7 +22,7 @@ input {
   font-size: 20px;
 }
 #sub {
-  font-size: 1cm;
+  font-size: 0.8cm;
 }
 p {
   margin: 0;
@@ -40,9 +35,15 @@ body#visitors {
 }
 
 h2 {
+  display: flex;
+  justify-content: center;
   color: #333;
+  margin-top: 2cm;
 }
-
+h1 {
+  display: flex;
+  justify-content: center;
+}
 #selectedVisitorMessage {
   margin-top: 15px;
   padding: 10px;
@@ -60,6 +61,8 @@ h2 {
 
 #visitorDisplay {
   margin-top: 20px;
+  padding-left: 2.5cm;
+  padding-right: 2.7cm;
 }
 
 .cards {
@@ -71,11 +74,16 @@ h2 {
   gap: 1cm;
 }
 .card {
-  height: 25rem;
-  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 20rem;
+  width: 19.5rem;
 }
 img {
-  height: 15rem;
+  height: 10rem;
+  width: 10rem;
 }
 button {
   display: block;
@@ -98,20 +106,22 @@ button:hover {
   justify-content: center;
   align-items: center;
   gap: 1cm;
-  margin-top: 1cm;
+  padding-left: 2.5cm;
+  padding-right: 2.7cm;
 }
 .animal {
-  position: relative;
   display: flex;
   flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
-  height: 35rem;
-  width: 20rem;
+  height: 28rem;
+  width: 19.5rem;
+}
+img card-img-top {
+  height: 15rem;
+  width: 15rem;
 }
 #fillters {
   background-color: #d46127;
@@ -134,36 +144,91 @@ button:hover {
 #related-animals {
   display: flex;
   flex-direction: row;
-  gap: 0.1cm;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1cm;
   margin-top: 0.5cm;
-  height: 20rem;
+  padding-left: 6cm;
+  padding-right: 3.7cm;
+}
+#related-animals .card {
+  height: 10rem;
 }
 #related-animals .card img {
-  height: 8rem;
+  height: 7rem;
 }
 #visited-animals {
   display: flex;
   flex-direction: row;
-  gap: 0.1cm;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1cm;
   margin-top: 0.5cm;
-  height: 20rem;
+  padding-left: 6cm;
+  padding-right: 3.7cm;
 }
-nav {
+#visited-animals .card {
+  height: 10rem;
+}
+#visited-animals .card img {
+  height: 7rem;
+}
+#feeded-animals {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1cm;
+  margin-top: 0.5cm;
+  padding-left: 6cm;
+  padding-right: 3.7cm;
+}
+#feeded-animals .card {
+  height: 10rem;
+}
+#feeded-animals .card img {
+  height: 7rem;
+}
+#favorite-animal {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1cm;
+  margin-top: 0.5cm;
+  padding-left: 6cm;
+  padding-right: 3.7cm;
+}
+#favorite-animal .card {
+  height: 10rem;
+}
+#favorite-animal .card img {
+  height: 7rem;
+}
+nav.navbar.navbar-expand-lg.navbar-light.bg-light {
+  padding-left: 6.5cm;
+}
+nav .navbar-nav.me-auto {
+  display: flex;
+  flex-direction: row;
   background-color: #f8f9fa;
-  padding: 10px 20px;
   border-bottom: 1px solid #dee2e6;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5cm;
 }
-
+span #selectedVisitorInfo {
+  align-self: center;
+  justify-self: center;
+}
 #selectedVisitorInfo {
   margin-right: 20px;
 }
 
 #visitorDropdown {
   width: 200px;
-}
-/* Responsive adjustments */
-@media only screen and (max-width: 768px) {
-  .card {
-    width: 100%;
-  }
 }
