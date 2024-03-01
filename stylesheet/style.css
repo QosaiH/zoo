@@ -209,17 +209,16 @@ img card-img-top {
 #favorite-animal .card img {
   height: 7rem;
 }
-nav.navbar.navbar-expand-lg.navbar-light.bg-light {
+/*nav.navbar.navbar-expand-lg.navbar-light.bg-light {
   padding-left: 6.5cm;
-}
-nav .navbar-nav.me-auto {
+}*/
+nav .navbar-nav {
   display: flex;
-  flex-direction: row;
   background-color: #f8f9fa;
   border-bottom: 1px solid #dee2e6;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5cm;
+  gap: 1cm;
 }
 span #selectedVisitorInfo {
   align-self: center;

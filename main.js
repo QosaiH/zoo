@@ -241,6 +241,12 @@ function resetLocalStorage() {
 function openDashboard() {
   window.location.href = "dashboard.html";
 }
+function openLoginPage() {
+  window.location.href = "login.html";
+}
+function openZoo() {
+  window.location.href = "zoo.html";
+}
 // Populating the dropdown menu with visitors
 document.addEventListener("DOMContentLoaded", function () {
   // Check if the current URL ends with "zoo.html"
@@ -263,9 +269,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         <!-- Navbar items -->
         <li class="nav-item">
-            <button class="btn btn-outline-danger me-2" onclick="openDashboard()">Dashboard</button>
+            <button class="btn btn-outline-danger me-2" onclick="openLoginPage()">Change User</button>
         </li>
-
+        <li class="nav-item">
+            <button class="btn btn-outline-danger me-2" onclick="openZoo()">Zoo</button>
+        </li>
+        <li class="nav-item">
+        <button class="btn btn-outline-danger me-2" onclick="openDashboard()">Dashboard</button>
+    </li>
 
         <!-- Selected visitor info and reset button -->
         <li class="nav-item">

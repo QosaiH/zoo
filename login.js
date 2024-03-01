@@ -72,18 +72,3 @@ function filterVisitors() {
   );
   displayVisitors(filteredVisitors);
 }
-function removeVisitorsWithUndefinedCoins() {
-  const existingVisitors = JSON.parse(localStorage.getItem("visitors")) || [];
-
-  // Filter out visitors with undefined coins
-  const filteredVisitors = existingVisitors.filter(
-    (visitor) => typeof visitor.coins !== "undefined"
-  );
-
-  // Update local storage with the filtered visitors
-  localStorage.setItem("visitors", JSON.stringify(filteredVisitors));
-}
-
-// Call the function whenever you want to remove visitors with undefined coins
-// For example, you can call it before displaying the visitors on the login page
-removeVisitorsWithUndefinedCoins();

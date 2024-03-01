@@ -70,23 +70,25 @@ function feedAnimal() {
 
   if (visitorIndex !== -1) {
     let visitor = visitors[visitorIndex];
-    visitor.coins -= 2; // Deduct 2 coins for feeding
-    visitors[visitorIndex] = visitor; // Update the visitor object in the array
-    localStorage.setItem("visitors", JSON.stringify(visitors)); // Update visitors in localStorage
-    if (visitor.coins >= 0) {
+    if (visitor.coins === 0 && selectedAnimal.isPredator) {
+      visitorGotEaten();
+      return;
+    }
+
+    if (visitor.coins === 0 && selectedAnimal.isPredator === false) {
+      animalEscaped(); // Handle the case where the selected visitor is not found
+    }
+    if (visitor.coins > 0) {
+      visitor.coins -= 50; // Deduct 2 coins for feeding
+      visitors[visitorIndex] = visitor; // Update the visitor object in the array
+      localStorage.setItem("visitors", JSON.stringify(visitors)); // Update visitors in localStorage
+
       let feededAnimals =
         JSON.parse(localStorage.getItem("feededAnimals")) || [];
       feededAnimals.push(selectedAnimal.name);
       localStorage.setItem("feededAnimals", JSON.stringify(feededAnimals));
       alert(`Feeding ${selectedAnimal.name}...`);
-    }
-    if (visitor.coins < 0 && selectedAnimal.isPredator) {
-      visitorGotEaten();
-      return;
-    }
-
-    if (visitor.coins < 0 && selectedAnimal.isPredator == false) {
-      animalEscaped(); // Handle the case where the selected visitor is not found
+      location.reload();
     }
   }
 }
@@ -104,13 +106,15 @@ function removeVisitor(visitorName) {
   window.location.href = "login.html";
 }
 function animalEscaped() {
-  const escapedAnimalName = JSON.parse(localStorage.getItem("visitedAnimal"));
+  const escapedAnimal = JSON.parse(localStorage.getItem("visitedAnimal"));
+  const escapedAnimalName = escapedAnimal.name;
   removeAnimal(escapedAnimalName); // Remove the escaped animal from the local animals array
+  localStorage.removeItem("visitedAnimal");
 }
 function removeAnimal(animalName) {
   let animals = JSON.parse(localStorage.getItem("animals")) || [];
-  animals = animals.filter((animal) => animal.name !== animalName);
-  localStorage.setItem("animals", JSON.stringify(animals));
+  const updatedAnimals = animals.filter((animal) => animal.name !== animalName);
+  localStorage.setItem("animals", JSON.stringify(updatedAnimals));
   alert("The animal has escaped from the zoo!");
   window.location.href = "zoo.html";
 }
