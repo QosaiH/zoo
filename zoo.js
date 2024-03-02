@@ -48,6 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("applyFilters")
     .addEventListener("click", () => setFilter("some", "some"));
+  document.querySelectorAll(".animal").forEach((animalCard) => {
+    animalCard.addEventListener("click", () => {
+      const animalName = animalCard.querySelector(".card-title").textContent;
+      displayAnimalModal(animalName);
+    });
+  });
 });
 
 function saveFiltersToLocalStorage() {
@@ -215,4 +221,49 @@ function applyFilters() {
   });
 
   displayAnimals(filteredAnimals);
+}
+
+function displayAnimalModal(animalName) {
+  const selectedAnimal = animals.find((animal) => animal.name === animalName);
+
+  // Construct the modal HTML
+  const modalHTML = `
+  <div class="modal fade" id="animalModal" tabindex="-1" aria-labelledby="animalModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="animalModalLabel">${
+            selectedAnimal.name
+          }</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img src="${selectedAnimal.image}" alt="${
+    selectedAnimal.name
+  }" class="img-fluid mb-3">
+          <p><strong>Predator:</strong> ${
+            selectedAnimal.isPredator ? "Yes" : "No"
+          }</p>
+          <p><strong>Weight:</strong> ${selectedAnimal.weight}</p>
+          <p><strong>Height:</strong> ${selectedAnimal.height}</p>
+          <p><strong>Color:</strong> ${selectedAnimal.color}</p>
+          <p><strong>Habitat:</strong> ${selectedAnimal.habitat}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+`;
+
+  // Remove existing modal if any
+  const existingModal = document.getElementById("animalModal");
+  if (existingModal) {
+    existingModal.remove();
+  }
+
+  // Append modal HTML to the body
+  document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+  // Show the modal
+  const modal = new bootstrap.Modal(document.getElementById("animalModal"));
+  modal.show();
 }
