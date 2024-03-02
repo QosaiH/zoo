@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
   filterVisitors();
 });
 
+const searchVisitor = document.getElementById("searchVisitor");
+searchVisitor.addEventListener("input", filterVisitors);
+
 function displayVisitors(filteredVisitors) {
   const visitorDisplay = document.getElementById("visitorDisplay");
   const selectedVisitorMessage = document.getElementById(
@@ -15,7 +18,16 @@ function displayVisitors(filteredVisitors) {
   // Check if a visitor is already selected
   const selectedVisitor = getSelectedVisitor();
   if (selectedVisitor) {
-    selectedVisitorMessage.innerHTML = `You are logged in as ${selectedVisitor.name}. <button>Logout</button>`;
+    selectedVisitorMessage.innerHTML = `
+          You are logged in as <strong>${selectedVisitor.name}</strong>.
+          <button id="logoutButton" class="btn btn-danger">Logout</button>
+          <button id="goToZooButton" class="btn btn-primary" onclick="startthegame('${selectedVisitor.name}')">Go To the Zoo</button>
+      `;
+    // Add event listener to logoutButton
+    document.getElementById("logoutButton").addEventListener("click", () => {
+      localStorage.removeItem("selectedVisitor");
+      displayVisitors();
+    });
   }
 
   visitorDisplay.innerHTML = createCardHTML(filteredVisitors || visitors);
@@ -26,8 +38,9 @@ function createCardHTML(visitors) {
   visitors.forEach((visitor) => {
     if (visitor.gender == "male") {
       cardHTML += `<div class="card"><img class="card-img-top" src="../photos/man.png" alt="${visitor.name}"><div class="card-body"><h3 class="card-title">${visitor.name}</h3><p class="card-text">Coins: ${visitor.coins}</p><button class="btn btn-primary" onclick="loginAsVisitor('${visitor.name}')">Login</button></div></div>`;
-    } else
+    } else {
       cardHTML += `<div class="card"><img class="card-img-top" src="../photos/women.png" alt="${visitor.name}"><div class="card-body"><h3 class="card-title">${visitor.name}</h3><p class="card-text">Coins: ${visitor.coins}</p><button class="btn btn-primary" onclick="loginAsVisitor('${visitor.name}')">Login</button></div></div>`;
+    }
   });
   return cardHTML;
 }
@@ -51,12 +64,6 @@ function loginAsVisitor(visitorName) {
   localStorage.setItem("selectedVisitor", visitorName);
   window.location.href = "zoo.html";
 }
-document
-  .getElementById("selectedVisitorMessage")
-  .addEventListener("click", () => {
-    localStorage.removeItem("selectedVisitor");
-    displayVisitors(); // Make sure this function is called properly
-  });
 
 function getSelectedVisitor() {
   const selectedVisitorName = localStorage.getItem("selectedVisitor");
@@ -71,4 +78,9 @@ function filterVisitors() {
     visitor.name.toLowerCase().includes(searchTerm)
   );
   displayVisitors(filteredVisitors);
+}
+
+function startthegame(visitorName) {
+  localStorage.setItem("selectedVisitor", visitorName);
+  window.location.href = "zoo.html";
 }

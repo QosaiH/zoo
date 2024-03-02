@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   renderRelatedAnimals();
   const feedAnimalButton = document.getElementById("feed-animal");
   feedAnimalButton.addEventListener("click", feedAnimal);
+  const ZooButton = document.getElementById("Zoo");
+  ZooButton.addEventListener("click", BackToTheZoo);
 });
 
 function renderAnimal() {
@@ -70,25 +72,28 @@ function feedAnimal() {
 
   if (visitorIndex !== -1) {
     let visitor = visitors[visitorIndex];
-    if (visitor.coins === 0 && selectedAnimal.isPredator) {
+    if (visitor.coins <= 0 && selectedAnimal.isPredator) {
       visitorGotEaten();
       return;
     }
 
-    if (visitor.coins === 0 && selectedAnimal.isPredator === false) {
+    if (visitor.coins <= 0 && selectedAnimal.isPredator === false) {
       animalEscaped(); // Handle the case where the selected visitor is not found
     }
     if (visitor.coins > 0) {
-      visitor.coins -= 50; // Deduct 2 coins for feeding
+      visitor.coins -= 2; // Deduct 2 coins for feeding
       visitors[visitorIndex] = visitor; // Update the visitor object in the array
       localStorage.setItem("visitors", JSON.stringify(visitors)); // Update visitors in localStorage
 
       let feededAnimals =
-        JSON.parse(localStorage.getItem("feededAnimals")) || [];
+        JSON.parse(localStorage.getItem(visitorName + "feededAnimals")) || [];
       feededAnimals.push(selectedAnimal.name);
-      localStorage.setItem("feededAnimals", JSON.stringify(feededAnimals));
-      alert(`Feeding ${selectedAnimal.name}...`);
+      localStorage.setItem(
+        visitorName + "feededAnimals",
+        JSON.stringify(feededAnimals)
+      );
       location.reload();
+      alert(`Feeding ${selectedAnimal.name}...`);
     }
   }
 }
@@ -118,4 +123,6 @@ function removeAnimal(animalName) {
   alert("The animal has escaped from the zoo!");
   window.location.href = "zoo.html";
 }
-// Your JavaScript code here
+function BackToTheZoo() {
+  window.location.href = "zoo.html";
+}

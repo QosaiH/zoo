@@ -205,8 +205,6 @@ function generateDataset() {
   } else {
     localStorage.setItem("animals", JSON.stringify(animals));
   }
-
-  console.log(visitors);
 }
 generateDataset();
 
@@ -247,61 +245,87 @@ function openLoginPage() {
 function openZoo() {
   window.location.href = "zoo.html";
 }
-// Populating the dropdown menu with visitors
+// Add the necessary scripts for Bootstrap
+const jqueryScript = document.createElement("script");
+jqueryScript.src = "https://code.jquery.com/jquery-3.5.1.slim.min.js";
+jqueryScript.crossOrigin = "anonymous";
+
+const popperScript = document.createElement("script");
+popperScript.src =
+  "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js";
+popperScript.crossOrigin = "anonymous";
+
+const bootstrapScript = document.createElement("script");
+bootstrapScript.src =
+  "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js";
+bootstrapScript.crossOrigin = "anonymous";
+
+// Append the scripts to the head element
+document.head.appendChild(jqueryScript);
+document.head.appendChild(popperScript);
+document.head.appendChild(bootstrapScript);
+
+// Now, let's modify the rest of your code to ensure proper initialization of the collapse functionality
+
+// Add event listener to load content after DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
-  // Check if the current URL ends with "zoo.html"
+  // Check if the current URL ends with "zoo.html", "animal.html", or "dashboard.html"
   if (
     location.pathname.endsWith("zoo.html") ||
     location.pathname.endsWith("animal.html") ||
     location.pathname.endsWith("dashboard.html")
   ) {
+    // Create the navigation bar
     const navbar = document.createElement("nav");
     navbar.className = "navbar navbar-expand-lg navbar-light bg-light";
     navbar.innerHTML = `
-    <ul class="navbar-nav me-auto">
-        <!-- Toggler button for mobile -->
-        <li class="nav-item">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </li>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                  <li class="nav-item">
+                      <button class="btn btn-outline-danger me-2" onclick="openLoginPage()">Change User</button>
+                  </li>
+                  <li class="nav-item">
+                      <button class="btn btn-outline-danger me-2" onclick="openZoo()">Zoo</button>
+                  </li>
+                  <li class="nav-item">
+                      <button class="btn btn-outline-danger me-2" onclick="openDashboard()">Dashboard</button>
+                  </li>
+                  <li class="nav-item">
+                      <span id="selectedVisitorInfo" class="me-2">Guest: [Visitor Name] - Coins: [Visitor Coins]</span>
+                  </li>
+                  <li class="nav-item">
+                      <button class="btn btn-outline-danger me-2" onclick="resetLocalStorage()">Reset</button>
+                  </li>
+                  <li class="nav-item">
+                      <select id="visitorDropdown" class="form-select me-2" onchange="showSelectedVisitor()">
+                          <option value="">Show Visitors</option>
+                          <!-- Dynamically populate this dropdown with possible visitors -->
+                      </select>
+                  </li>
+                  <li class="nav-item">
+                      <button class="btn btn-outline-danger" onclick="logout()">Logout</button>
+                  </li>
+              </ul>
+          </div>
+      `;
 
-        <!-- Navbar items -->
-        <li class="nav-item">
-            <button class="btn btn-outline-danger me-2" onclick="openLoginPage()">Change User</button>
-        </li>
-        <li class="nav-item">
-            <button class="btn btn-outline-danger me-2" onclick="openZoo()">Zoo</button>
-        </li>
-        <li class="nav-item">
-        <button class="btn btn-outline-danger me-2" onclick="openDashboard()">Dashboard</button>
-    </li>
-
-        <!-- Selected visitor info and reset button -->
-        <li class="nav-item">
-            <span id="selectedVisitorInfo" class="me-2">Guest: [Visitor Name] - Coins: [Visitor Coins]</span>
-        </li>
-        <li class="nav-item">
-            <button class="btn btn-outline-danger me-2" onclick="resetLocalStorage()">Reset</button>
-        </li>
-
-        <!-- Dropdown menu for selecting visitors -->
-        <li class="nav-item">
-            <select id="visitorDropdown" class="form-select me-2" onchange="showSelectedVisitor()">
-                <option value="">Show Visitors</option>
-                <!-- Dynamically populate this dropdown with possible visitors -->
-            </select>
-        </li>
-        <li class="nav-item">
-            <button class="btn btn-outline-danger" onclick="logout()">Logout</button>
-        </li>
-    </ul>
-`;
-
-    // Find the appropriate location to insert the navbar
+    // Append the navigation bar to the body
     document.body.insertAdjacentElement("afterbegin", navbar);
 
+    // Load Bootstrap JavaScript after the DOM content is loaded
+    const bootstrapScript = document.createElement("script");
+    bootstrapScript.src =
+      "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js";
+    bootstrapScript.integrity =
+      "sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV";
+    bootstrapScript.crossOrigin = "anonymous";
+    document.head.appendChild(bootstrapScript);
+
+    // Initialize the visitor dropdown
     const dropdown = document.getElementById("visitorDropdown");
     if (dropdown) {
       showSelectedVisitor();

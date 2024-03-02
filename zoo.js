@@ -105,10 +105,15 @@ function renderAvailableAnimals(animals) {
 }
 
 function visitAnimal(animalName) {
+  const visitorName = localStorage.getItem("selectedVisitor");
   const selectedAnimal = animals.find((animal) => animal.name === animalName);
-  let newAnimalVisit = JSON.parse(localStorage.getItem("visitedAnimals")) || [];
+  let newAnimalVisit =
+    JSON.parse(localStorage.getItem(visitorName + "visitedAnimals")) || [];
   newAnimalVisit.push(animalName);
-  localStorage.setItem("visitedAnimals", JSON.stringify(newAnimalVisit));
+  localStorage.setItem(
+    visitorName + "visitedAnimals",
+    JSON.stringify(newAnimalVisit)
+  );
   localStorage.setItem("visitedAnimal", JSON.stringify(selectedAnimal));
   window.location.href = "animal.html";
 }

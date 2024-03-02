@@ -44,12 +44,21 @@ h1 {
   display: flex;
   justify-content: center;
 }
+#visitors {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
 #selectedVisitorMessage {
-  margin-top: 15px;
-  padding: 10px;
+  display: flex;
   background-color: #e6f7ff;
   border: 1px solid #b3e0ff;
   border-radius: 5px;
+  width: 16cm;
+  align-items: center;
+  justify-content: center;
 }
 
 #searchVisitor {
@@ -61,8 +70,8 @@ h1 {
 
 #visitorDisplay {
   margin-top: 20px;
-  padding-left: 2.5cm;
-  padding-right: 2.7cm;
+  padding-left: 3cm;
+  padding-right: 3cm;
 }
 
 .cards {
@@ -98,6 +107,11 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+#buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 0.1cm;
 }
 #animalContainer {
   display: flex;
@@ -158,6 +172,7 @@ img card-img-top {
 #related-animals .card img {
   height: 7rem;
 }
+
 #visited-animals {
   display: flex;
   flex-direction: row;
@@ -209,25 +224,19 @@ img card-img-top {
 #favorite-animal .card img {
   height: 7rem;
 }
-/*nav.navbar.navbar-expand-lg.navbar-light.bg-light {
-  padding-left: 6.5cm;
-}*/
+nav.navbar {
+  align-items: center;
+  justify-content: center;
+}
+nav.navbar .container {
+  margin-left: 6cm;
+}
 nav .navbar-nav {
   display: flex;
+  flex-wrap: wrap;
   background-color: #f8f9fa;
   border-bottom: 1px solid #dee2e6;
   align-items: center;
-  justify-content: space-between;
-  gap: 1cm;
-}
-span #selectedVisitorInfo {
-  align-self: center;
-  justify-self: center;
-}
-#selectedVisitorInfo {
-  margin-right: 20px;
-}
-
-#visitorDropdown {
-  width: 200px;
+  justify-content: center;
+  gap: 0.5cm;
 }

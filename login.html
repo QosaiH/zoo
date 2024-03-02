@@ -15,10 +15,20 @@
     <header>
         <h1>visitors</h1>
     </header>
-    <div id="selectedVisitorMessage"></div>
+    <div id="selectedVisitorMessage" class="mt-4"></div>
 
-    <label for="searchVisitor">Search Visitor:</label>
-    <input type="text" id="searchVisitor" oninput="filterVisitors()" />
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form>
+                    <div class="form-group">
+                        <label for="searchVisitor">Search Visitor:</label>
+                        <input type="text" class="form-control" id="searchVisitor" placeholder="Enter visitor name...">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div class="cards" id="visitorDisplay"></div>
     <script src="login.js"></script>
