@@ -264,6 +264,14 @@ function displayAnimalModal(animalName) {
   document.body.insertAdjacentHTML("beforeend", modalHTML);
 
   // Show the modal
-  const modal = new bootstrap.Modal(document.getElementById("animalModal"));
+  const modalElement = document.getElementById("animalModal");
+  const modal = new bootstrap.Modal(modalElement);
   modal.show();
+
+  // Get the close button inside the modal
+  const closeButton = modalElement.querySelector(".btn-close");
+  // Add event listener to close the modal when the close button is clicked
+  closeButton.addEventListener("click", () => {
+    modal.hide();
+  });
 }
