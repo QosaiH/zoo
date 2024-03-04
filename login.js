@@ -37,9 +37,9 @@ function createCardHTML(visitors) {
   let cardHTML = "";
   visitors.forEach((visitor) => {
     if (visitor.gender == "male") {
-      cardHTML += `<div class="card"><img class="card-img-top" src="../photos/man.png" alt="${visitor.name}"><div class="card-body"><h3 class="card-title">${visitor.name}</h3><p class="card-text">Coins: ${visitor.coins}</p><button class="btn btn-primary" onclick="loginAsVisitor('${visitor.name}')">Login</button></div></div>`;
+      cardHTML += `<div class="card"><img class="card-img-top" src="../.././photos/man.png" alt="${visitor.name}"><div class="card-body"><h3 class="card-title">${visitor.name}</h3><p class="card-text">Coins: ${visitor.coins}</p><button class="btn btn-primary" onclick="loginAsVisitor('${visitor.name}')">Login</button></div></div>`;
     } else {
-      cardHTML += `<div class="card"><img class="card-img-top" src="../photos/women.png" alt="${visitor.name}"><div class="card-body"><h3 class="card-title">${visitor.name}</h3><p class="card-text">Coins: ${visitor.coins}</p><button class="btn btn-primary" onclick="loginAsVisitor('${visitor.name}')">Login</button></div></div>`;
+      cardHTML += `<div class="card"><img class="card-img-top" src="../.././photos/women.png" alt="${visitor.name}"><div class="card-body"><h3 class="card-title">${visitor.name}</h3><p class="card-text">Coins: ${visitor.coins}</p><button class="btn btn-primary" onclick="loginAsVisitor('${visitor.name}')">Login</button></div></div>`;
     }
   });
   return cardHTML;
