@@ -29,6 +29,7 @@ function createNewVisitor(event) {
   const newVisitor = { name, age, gender, password, coins: 50 };
   existingVisitors.push(newVisitor);
   localStorage.setItem("visitors", JSON.stringify(existingVisitors));
+  localStorage.setItem("selectedVisitor", name);
   window.location.href = "login.html"; // Check the path to your login page
 }
 

@@ -77,11 +77,13 @@ function feedAnimal() {
       return;
     }
 
-    if (visitor.coins <= 0 && selectedAnimal.isPredator === false) {
+    if (visitor.coins <= 0 && !selectedAnimal.isPredator) {
       animalEscaped(); // Handle the case where the selected visitor is not found
+      return;
     }
-    if (visitor.coins > 0) {
-      visitor.coins -= 2; // Deduct 2 coins for feeding
+
+    if (visitor.coins >= 2) {
+      visitor.coins -= 50; // Deduct 2 coins for feeding
       visitors[visitorIndex] = visitor; // Update the visitor object in the array
       localStorage.setItem("visitors", JSON.stringify(visitors)); // Update visitors in localStorage
 
@@ -92,8 +94,14 @@ function feedAnimal() {
         visitorName + "feededAnimals",
         JSON.stringify(feededAnimals)
       );
-      location.reload();
-      alert(`Feeding ${selectedAnimal.name}...`);
+
+      // Update displayed coins in the dashboard
+      document.getElementById(
+        "selectedVisitorInfo"
+      ).textContent = `Guest: ${visitor.name} - Coins: ${visitor.coins}`;
+
+      // Display the feeding modal
+      displayFeedingModal(selectedAnimal.name);
     }
   }
 }
@@ -107,8 +115,7 @@ function removeVisitor(visitorName) {
   let visitors = JSON.parse(localStorage.getItem("visitors")) || [];
   visitors = visitors.filter((visitor) => visitor.name !== visitorName);
   localStorage.setItem("visitors", JSON.stringify(visitors));
-  alert("Oh no! You got eaten by the animal!");
-  window.location.href = "login.html";
+  displayVisitorEatenModal();
 }
 function animalEscaped() {
   const escapedAnimal = JSON.parse(localStorage.getItem("visitedAnimal"));
@@ -120,9 +127,136 @@ function removeAnimal(animalName) {
   let animals = JSON.parse(localStorage.getItem("animals")) || [];
   const updatedAnimals = animals.filter((animal) => animal.name !== animalName);
   localStorage.setItem("animals", JSON.stringify(updatedAnimals));
-  alert("The animal has escaped from the zoo!");
-  window.location.href = "zoo.html";
+  displayAnimalEscapedModal(); // Display the modal indicating the animal escaped
 }
 function BackToTheZoo() {
   window.location.href = "zoo.html";
+}
+
+function displayFeedingModal(animalName) {
+  const selectedAnimal = JSON.parse(localStorage.getItem("visitedAnimal"));
+
+  // Construct the feeding modal HTML
+  const modalHTML = `
+  <div class="modal fade" id="feedingModal" tabindex="-1" aria-labelledby="feedingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="feedingModalLabel">${selectedAnimal.name}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Thank you for feeding the animal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+`;
+
+  // Remove existing feeding modal if any
+  const existingModal = document.getElementById("feedingModal");
+  if (existingModal) {
+    existingModal.remove();
+  }
+
+  // Append feeding modal HTML to the body
+  document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+  // Show the feeding modal
+  const modalElement = document.getElementById("feedingModal");
+  const modal = new bootstrap.Modal(modalElement);
+  modal.show();
+
+  // Get the close button inside the feeding modal
+  const closeButton = modalElement.querySelector(".btn-close");
+  // Add event listener to close the feeding modal when the close button is clicked
+  closeButton.addEventListener("click", () => {
+    modal.hide();
+  });
+}
+
+function displayAnimalEscapedModal() {
+  // Construct the animal escaped modal HTML
+  const modalHTML = `
+  <div class="modal fade" id="animalEscapedModal" tabindex="-1" aria-labelledby="animalEscapedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="animalEscapedModalLabel">Animal Escaped</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>The animal has escaped from the zoo!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+`;
+
+  // Remove existing animal escaped modal if any
+  const existingModal = document.getElementById("animalEscapedModal");
+  if (existingModal) {
+    existingModal.remove();
+  }
+
+  // Append animal escaped modal HTML to the body
+  document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+  // Show the animal escaped modal
+  const modalElement = document.getElementById("animalEscapedModal");
+  const modal = new bootstrap.Modal(modalElement);
+  modal.show();
+
+  // Get the close button inside the animal escaped modal
+  const closeButton = modalElement.querySelector(".btn-close");
+  // Add event listener to close the animal escaped modal when the close button is clicked
+  modalElement.addEventListener("click", (event) => {
+    if (event.target === modalElement) {
+      modal.hide();
+      window.location.href = "zoo.html";
+    }
+  });
+}
+
+function displayVisitorEatenModal() {
+  // Construct the visitor eaten modal HTML
+  const modalHTML = `
+  <div class="modal fade" id="visitorEatenModal" tabindex="-1" aria-labelledby="visitorEatenModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="visitorEatenModalLabel">Visitor Eaten</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Oh no! You got eaten by the animal!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+`;
+
+  // Remove existing visitor eaten modal if any
+  const existingModal = document.getElementById("visitorEatenModal");
+  if (existingModal) {
+    existingModal.remove();
+  }
+
+  // Append visitor eaten modal HTML to the body
+  document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+  // Show the visitor eaten modal
+  const modalElement = document.getElementById("visitorEatenModal");
+  const modal = new bootstrap.Modal(modalElement);
+  modal.show();
+
+  // Get the close button inside the visitor eaten modal
+  const closeButton = modalElement.querySelector(".btn-close");
+  // Add event listener to close the visitor eaten modal when the close button is clicked
+  modalElement.addEventListener("click", (event) => {
+    if (event.target === modalElement) {
+      modal.hide();
+      window.location.href = "login.html";
+    }
+  });
 }

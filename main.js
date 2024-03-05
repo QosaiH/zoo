@@ -327,13 +327,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initialize the visitor dropdown
     const dropdown = document.getElementById("visitorDropdown");
+    const visitorsArr = JSON.parse(localStorage.getItem("visitors"));
     if (dropdown) {
       showSelectedVisitor();
-      visitors.forEach((visitor) => {
+      visitorsArr.forEach((visitor) => {
         const option = document.createElement("option");
         option.value = visitor.name;
         option.textContent = visitor.name;
-        option.disabled = true;
+        option.ariaReadOnly = true;
         dropdown.appendChild(option);
       });
     }

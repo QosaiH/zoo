@@ -19,7 +19,7 @@ function displayVisitors(filteredVisitors) {
   const selectedVisitor = getSelectedVisitor();
   if (selectedVisitor) {
     selectedVisitorMessage.innerHTML = `
-          You are logged in as <strong>${selectedVisitor.name}</strong>.
+          You are logged in as&nbsp;<strong> ${selectedVisitor.name} </strong>.
           <button id="logoutButton" class="btn btn-danger">Logout</button>
           <button id="goToZooButton" class="btn btn-primary" onclick="startthegame('${selectedVisitor.name}')">Go To the Zoo</button>
       `;
@@ -37,9 +37,9 @@ function createCardHTML(visitors) {
   let cardHTML = "";
   visitors.forEach((visitor) => {
     if (visitor.gender == "male") {
-      cardHTML += `<div class="card"><img class="card-img-top" src="https://www.flaticon.com/download/icon/4140048?icon_id=4140048&author=250&team=250&keyword=Man&pack=4139947&style=1&style_id=133&format=png&color=%23000000&colored=2&size=512&selection=1&type=standard&search=man" alt="${visitor.name}" /><div class="card-body"><h3 class="card-title">${visitor.name}</h3><p class="card-text">Coins: ${visitor.coins}</p><button class="btn btn-primary" onclick="loginAsVisitor('${visitor.name}')">Login</button></div></div>`;
+      cardHTML += `<div class="card"><img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" alt="${visitor.name}" /><div class="card-body"><h3 class="card-title">${visitor.name}</h3><p class="card-text">Coins: ${visitor.coins}</p><button class="btn btn-primary" onclick="loginAsVisitor('${visitor.name}')">Login</button></div></div>`;
     } else {
-      cardHTML += `<div class="card"><img class="card-img-top" src="https://www.flaticon.com/download/icon/6997662?icon_id=6997662&author=670&team=670&keyword=Woman&pack=6997480&style=Circular&style_id=1216&format=png&color=%23000000&colored=2&size=512&selection=1&type=standard&search=women" alt="${visitor.name}" /><div class="card-body"><h3 class="card-title">${visitor.name}</h3><p class="card-text">Coins: ${visitor.coins}</p><button class="btn btn-primary" onclick="loginAsVisitor('${visitor.name}')">Login</button></div></div>`;
+      cardHTML += `<div class="card"><img class="card-img-top" src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png" alt="${visitor.name}" /><div class="card-body"><h3 class="card-title">${visitor.name}</h3><p class="card-text">Coins: ${visitor.coins}</p><button class="btn btn-primary" onclick="loginAsVisitor('${visitor.name}')">Login</button></div></div>`;
     }
   });
   return cardHTML;
