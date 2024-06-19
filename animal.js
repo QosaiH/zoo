@@ -83,7 +83,7 @@ function feedAnimal() {
     }
 
     if (visitor.coins >= 2) {
-      visitor.coins -= 50; // Deduct 2 coins for feeding
+      visitor.coins -= 2; // Deduct 2 coins for feeding
       visitors[visitorIndex] = visitor; // Update the visitor object in the array
       localStorage.setItem("visitors", JSON.stringify(visitors)); // Update visitors in localStorage
 
